@@ -1,20 +1,156 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EXO PLANET #6</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXO PLANET #6 - EXplOrizOn</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI}
+
+body{
+  background: radial-gradient(circle at top, #0f172a, #000);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:120px 20px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,1));
+}
+
+.hero h1{
+  font-size:60px;
+  letter-spacing:4px;
+  text-shadow:0 0 20px rgba(255,255,255,0.3);
+}
+
+.hero h2{
+  font-size:28px;
+  margin-top:10px;
+  color:#c084fc;
+}
+
+.hero p{
+  color:#9ca3af;
+  margin-top:10px;
+}
+
+.hero button{
+  margin-top:25px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#22c55e,#4ade80);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px #22c55e;
+}
+
+/* GRID */
+.container{max-width:1100px;margin:auto;padding:30px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(30,41,59,0.7);
+  backdrop-filter:blur(10px);
+  padding:20px;
+  border-radius:15px;
+  transition:0.3s;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 25px rgba(168,85,247,0.6);
+}
+
+.selected{
+  border:2px solid #a855f7;
+}
+
+/* SEAT */
+.seats{
+  display:grid;
+  grid-template-columns:repeat(10,30px);
+  gap:8px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.seat{
+  width:30px;
+  height:30px;
+  border-radius:6px;
+  background:#334155;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.seat:hover{background:#a855f7}
+.seat.selected{background:#a855f7}
+
+/* FORM */
+form{
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
+
+input,select{
+  padding:12px;
+  border-radius:8px;
+  border:none;
+}
+
+button.submit{
+  background:linear-gradient(45deg,#22c55e,#4ade80);
+  color:white;
+  font-weight:bold;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  color:black;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+}
+
+/* ANIMATION */
+.hero{animation:fade 1.5s ease}
+@keyframes fade{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="hero">
   <h1>EXO PLANET #6</h1>
   <h2>EXplOrizOn in Jakarta</h2>
   <p>Indonesia Arena • 7 Juni 2026 • 15:00 WIB</p>
-
-  <div id="countdown" class="countdown"></div>
-
   <a href="#form"><button>Beli Tiket</button></a>
 </div>
 
@@ -48,18 +184,58 @@
     <input id="selectedTicket" readonly placeholder="Pilih tiket">
     <input id="selectedSeat" readonly placeholder="Pilih kursi">
 
-    <button type="submit">Beli Tiket</button>
+    <button class="submit">Beli Tiket</button>
   </form>
 </div>
 
-<div id="modal" class="modal">
+<div class="modal" id="modal">
   <div class="modal-content">
     <h3>Berhasil!</h3>
-    <p>Tiket diproses 🎉</p>
+    <p>Tiket kamu berhasil 🎉</p>
     <button onclick="closeModal()">Tutup</button>
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+const tickets=["CAT 1","CAT 2","CAT 3","CAT 4","CAT 5","CAT 6"];
+const list=document.getElementById('ticketList');
+const inputTicket=document.getElementById('selectedTicket');
+
+tickets.forEach(t=>{
+ const div=document.createElement('div');
+ div.className='card';
+ div.innerHTML=`<h3>${t}</h3>`;
+ div.onclick=()=>{
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
+  div.classList.add('selected');
+  inputTicket.value=t;
+ };
+ list.appendChild(div);
+});
+
+const seatContainer=document.getElementById('seats');
+const seatInput=document.getElementById('selectedSeat');
+
+for(let i=1;i<=40;i++){
+ const s=document.createElement('div');
+ s.className='seat';
+ s.onclick=()=>{
+  document.querySelectorAll('.seat').forEach(x=>x.classList.remove('selected'));
+  s.classList.add('selected');
+  seatInput.value='Seat '+i;
+ };
+ seatContainer.appendChild(s);
+}
+
+document.getElementById('form').addEventListener('submit',e=>{
+ e.preventDefault();
+ document.getElementById('modal').style.display='flex';
+});
+
+function closeModal(){
+ document.getElementById('modal').style.display='none';
+}
+</script>
+
 </body>
 </html>
