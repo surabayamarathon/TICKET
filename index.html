@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXO PLANET #6</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="hero">
+  <h1>EXO PLANET #6</h1>
+  <h2>EXplOrizOn in Jakarta</h2>
+  <p>Indonesia Arena • 7 Juni 2026 • 15:00 WIB</p>
+
+  <div id="countdown" class="countdown"></div>
+
+  <a href="#form"><button>Beli Tiket</button></a>
+</div>
+
+<div class="container">
+  <h2>Kategori Tiket</h2>
+  <div id="ticketList" class="grid"></div>
+</div>
+
+<div class="container">
+  <h2>Pilih Kursi</h2>
+  <div id="seats" class="seats"></div>
+</div>
+
+<div class="container">
+  <h2>Form Pembelian</h2>
+  <form id="form">
+    <input placeholder="Nama Lengkap" required>
+    <input placeholder="Nomor KTP" required>
+    <input type="date" required>
+
+    <select required>
+      <option>Jenis Kelamin</option>
+      <option>Laki-laki</option>
+      <option>Perempuan</option>
+    </select>
+
+    <input placeholder="WhatsApp" required>
+    <input type="email" placeholder="Email" required>
+    <input placeholder="Alamat" required>
+
+    <input id="selectedTicket" readonly placeholder="Pilih tiket">
+    <input id="selectedSeat" readonly placeholder="Pilih kursi">
+
+    <button type="submit">Beli Tiket</button>
+  </form>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h3>Berhasil!</h3>
+    <p>Tiket diproses 🎉</p>
+    <button onclick="closeModal()">Tutup</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
